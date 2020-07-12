@@ -1,45 +1,117 @@
-<?xml version="1.0" encoding="utf-8" ?> 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">  
-<!--http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd-->  
-<html xmlns="http://www.w3.org/1999/xhtml"  
-> 
-<head><title>LILO
-Generic boot loader for Linux
-Version 21.5 Documentation</title> 
-<meta http-equiv="content-type" content="text/html; charset=UTF-8" /> 
-<meta name="generator" content="Bluefish 2.2.3" /> 
-<meta name="date" content="2013-06-07T14:28:57+0200" /> 
-<link rel="stylesheet" type="text/css" href="tech_21-5.css" /> 
-</head><body 
->
-<div class="maketitle">
-
-
-
-<h2 class="titleHead">LILO<br />
-Generic boot loader for Linux<br />
-Version 21.5<br />
-July 17, 2000</h2>
-
-<h3 class="likesectionHead">Documentation</h3>
-
-<p class="author" ><span 
-class="cmr-12"><a href="user_21-5.html">User’s guide</a> <br />
-(written by Werner Almesberger and John R. Coffman)</span>
-</p>
-
-<p class="author" ><span 
-class="cmr-12"><a href="tech_21-5.html">Technical overview</a> <br />
-(written by Werner Almesberger and John R. Coffman)</span>
-</p>
-
-<p><span 
-class="cmti-10x-x-109"><br />
-(Documentation reconstructed by Joachim Wiedorn on January 29, 2011)</span>
-</p>
-
-</body></html> 
-
-
-
+<!DOCTYPE html> 
+<html>
+	<head>
+		<meta charset="utf-8">
+		<style type="text/css">
+			.settings button {
+				display: block;
+			}
+			.table {
+				display: table;
+			}
+			.tr {
+				display: table-row;
+			}
+			.td {
+				display: table-cell;
+				padding: 2px 5px;
+				border: solid 2px white;
+			}
+		</style>
+		<script type="text/javascript">
+			document.addEventListener("DOMContentLoaded", hideAll);	
+			
+			function hideAll() {
+				resetInput()
+				el = document.getElementsByClassName("td");
+				for (let item of el) {
+					item.style.backgroundColor = "silver";
+					item.style.color = "silver";
+				}
+				el = document.getElementsByClassName("ok");
+				for (let item of el) {
+					item.addEventListener("click", check);
+				}
+			}
+			
+			function showAll() {
+				el = document.getElementsByClassName("td");
+				for (let item of el) {
+					item.style.backgroundColor = "white";
+					item.style.color = "black";
+				}
+			}
+			
+			function len(l) {
+				resetInput()
+				el = document.getElementsByClassName("td");
+				for (let item of el) {
+					if (item.getAttribute("lng") === l) {
+						item.style.backgroundColor = "silver";
+						item.style.color = "silver";
+					}
+					else {
+						item.style.backgroundColor = "white";
+						item.style.color = "black";
+					}
+				}
+			}
+			
+			function check(event) {
+				p = event.currentTarget.parentElement;
+				el = p.getElementsByClassName("td");
+				if (el[0].style.color === el[1].style.color) return;
+				if (el[0].style.color === "silver") {
+					showEl = el[1];
+					hideEl = el[0];
+				}
+				else {
+					showEl = el[0];
+					hideEl = el[1];
+				}
+				hideEl.style.color = "black";
+				inputEl = p.getElementsByTagName("input");
+				inputEl = inputEl[0];
+				if (hideEl.textContent === inputEl.value) {
+					hideEl.style.backgroundColor = "lime";
+					inputEl.style.backgroundColor = "lime";
+				}
+				else {
+					hideEl.style.backgroundColor = "red";
+					inputEl.style.backgroundColor = "red";
+				}
+			}
+			
+			function resetInput() {
+				el = document.getElementsByTagName("input");
+				for (let item of el) {
+					item.value = "";
+					item.style.color = "black";
+					item.style.backgroundColor = "white";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="settings">
+			<button onclick="len('ru')">Учить с английского на русский</button>
+			<button onclick="len('en')">Учить с русского на английский</button>
+			<button onclick="showAll()">Показать все слова</button>
+			<button onclick="hideAll()">Сброс</button>
+		</div>
+		<div class="table">
+			<div class="tr">
+				<div class="td" lng="en">dog</div>
+				<div class="td" lng="ru">собака</div>
+				<input></input>
+				<button class="ok">OK</button>
+			</div>
+			<div class="tr">
+				<div class="td" lng="en">cat</div>
+				<div class="td" lng="ru">кошка</div>
+				<input></input>
+				<button class="ok">OK</button>
+			</div>
+		</div>
+	</body> 
+</html>
